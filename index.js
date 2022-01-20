@@ -1,28 +1,8 @@
 const { Readable, Writable } = require('streamx')
+require('fast-readable-async-iterator')
 
-class BlobReadStream extends Readable {
-  constructor(blob, opts = {}) {
-    super(opts)
-    this.reader = (async function* () {
-      const stream = blob.stream()
-      const reader = stream.getReader()
-      let last = reader.read()
-      while (!last.done) {
-        const temp = last
-        last = reader.read()
-        yield (await temp).value
-      }
-      yield (await last).value
-    })()
-  }
-
-  async _read(cb) {
-    if (this.destroyed) return
-    const { value } = await this.reader.next()
-    if (value == null) this.destroy()
-    this.push(value || null)
-    cb()
-  }
+function BlobReadStream (blob, opts = {}){
+  return Readable.from(blob.stream(), opts)
 }
 
 class BlobWriteStream extends Writable {
