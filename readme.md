@@ -10,9 +10,9 @@ For writable, pulls as much data as possible, as fast as possible.
 ```js
 import { BlobReadStream, BlobWriteStream } from 'fast-blob-stream'
 
-const readStream = new BlobReadStream(blob, { mimeType: 'video/mp4' })
+const readStream = new BlobReadStream(blob, opts)
 
-const writeStream = new BlobWriteStream(console.log) // logs blob once generated
+const writeStream = new BlobWriteStream(console.log, { mimeType: 'video/mp4', ...opts }) // logs blob once generated
 
 writeStream.on('blob', console.log) // also logs blob once generated
 
