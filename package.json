@@ -15,6 +15,6 @@
   "author": "ThaUnknown_",
   "license": "MIT",
   "dependencies": {
-    "buffer": "^6.0.3"
+    "streamx": "^2.12.0"
   }
 }

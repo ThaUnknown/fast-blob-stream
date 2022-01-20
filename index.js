@@ -1,10 +1,8 @@
-const { Readable, Writable } = require('readable-stream')
-const { Buffer } = require('buffer')
+const { Readable, Writable } = require('streamx')
 
 class BlobReadStream extends Readable {
   constructor(blob, opts = {}) {
     super(opts)
-    this.destroyed = false
     this.reader = (async function* () {
       const stream = blob.stream()
       const reader = stream.getReader()
@@ -18,11 +16,12 @@ class BlobReadStream extends Readable {
     })()
   }
 
-  async _read() {
+  async _read(cb) {
     if (this.destroyed) return
     const { value } = await this.reader.next()
-    if (value == null) this.destroyed = true
+    if (value == null) this.destroy()
     this.push(value || null)
+    cb()
   }
 }
 
@@ -31,16 +30,16 @@ class BlobWriteStream extends Writable {
     super(Object.assign({ decodeStrings: false }, opts))
     this.chunks = []
     const mimeType = opts.mimeType
-    this.once('end', () => {
+    this.once('close', () => {
       const blob = mimeType != null ? new Blob(chunks, { type: mimeType }) : new Blob(chunks)
       callback(blob)
       this.emit('blob', blob)
     })
   }
 
-  _write(chunk, enc, callback) {
-    this.chunks.push(chunk)
-    callback()
+  _write(data, cb) {
+    this.chunks.push(data)
+    cb()
   }
 }
 

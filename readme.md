@@ -6,7 +6,7 @@ For readable, caches 1 value ahead, eliminating potential latency caused by code
 
 For writable, pulls as much data as possible, as fast as possible. 
 
-Usage
+## Usage:
 ```js
 import { BlobReadStream, BlobWriteStream } from 'fast-blob-stream'
 
