@@ -15,7 +15,7 @@
   "author": "ThaUnknown_",
   "license": "MIT",
   "dependencies": {
-    "fast-readable-async-iterator": "github:ThaUnknown/fast-readable-async-iterator",
+    "fast-readable-async-iterator": "^1.0.0",
     "streamx": "^2.12.0"
   }
 }
