@@ -1,6 +1,6 @@
 {
   "name": "fast-blob-stream",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Fast Blob -> Node Stream",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
   "author": "ThaUnknown_",
   "license": "MIT",
   "dependencies": {
-    "fast-readable-async-iterator": "^1.0.0",
-    "streamx": "^2.12.0"
+    "fast-readable-async-iterator": "^1.0.1",
+    "streamx": "^2.12.4"
   }
 }
